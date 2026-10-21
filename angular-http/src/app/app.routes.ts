@@ -3,6 +3,7 @@ import { Posts } from './posts/posts';
 import { Gatti } from './gatti/gatti';
 import { Nasa } from './nasa/nasa';
 import { Pokedex } from './pokedex/pokedex';
+import { Todos } from './todos/todos';
 
 export const routes: Routes = [
   { path: '', redirectTo: 'posts', pathMatch: 'full' },
@@ -10,5 +11,6 @@ export const routes: Routes = [
   { path: 'gatti', component: Gatti },
   { path: 'nasa', component: Nasa },
   { path: 'pokedex', component: Pokedex },
+  { path: 'todos', component: Todos },
   { path: '**', redirectTo: 'posts' },
 ];

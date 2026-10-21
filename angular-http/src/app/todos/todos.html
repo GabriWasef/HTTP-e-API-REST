@@ -1,0 +1,40 @@
+<h2>Cose da fare</h2>
+
+<div class="btn-group mb-3">
+  <button type="button" class="btn btn-outline-primary" (click)="carica(1)">Utente 1</button>
+  <button type="button" class="btn btn-outline-primary" (click)="carica(2)">Utente 2</button>
+  <button type="button" class="btn btn-outline-primary" (click)="carica(99)">Utente 99</button>
+</div>
+
+@if (loading()) {
+  <div class="spinner-border text-primary" role="status"></div>
+} @else if (errore()) {
+  <div class="alert alert-danger">{{ errore() }}</div>
+} @else {
+  <p>Completate: {{ completate() }} su {{ todos().length }}</p>
+  <ul class="list-group mb-3">
+    @for (t of todos(); track t.id) {
+      <li class="list-group-item d-flex justify-content-between align-items-center">
+        <span>
+          {{ t.title }}
+          @if (t.completed) {
+            <span class="badge text-bg-success ms-2">fatto</span>
+          }
+        </span>
+        <button type="button" class="btn btn-sm btn-outline-danger" (click)="elimina(t.id)">Elimina</button>
+      </li>
+    } @empty {
+      <li class="list-group-item">Nessuna attività per questo utente.</li>
+    }
+  </ul>
+}
+
+<div class="input-group mb-3">
+  <input #nuova class="form-control" placeholder="Nuova attività">
+  <button type="button" class="btn btn-primary" (click)="aggiungi(nuova)">Invia</button>
+</div>
+
+@if (creato(); as c) {
+  <p>Risposta del server alla POST:</p>
+  <pre>{{ c | json }}</pre>
+}
