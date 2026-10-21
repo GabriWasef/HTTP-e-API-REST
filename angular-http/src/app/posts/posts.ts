@@ -15,6 +15,9 @@ export class Posts {
 
   readonly post = signal<Post | null>(null);
   readonly posts = signal<Post[]>([]);
+  readonly postsPagina = signal<Post[]>([]);
+  readonly pagina = signal(1);
+  readonly ultimaPagina = 10;
   readonly loading = signal(false);
   readonly errore = signal<string | null>(null);
 
@@ -34,6 +37,18 @@ export class Posts {
     this.postService.getPosts().subscribe({
       next: (dati) => {
         this.posts.set(dati);
+        this.loading.set(false);
+      },
+      error: (err: HttpErrorResponse) => this.gestisciErrore(err),
+    });
+  }
+
+  caricaPagina(numero: number): void {
+    this.inizia();
+    this.postService.getPagina(numero).subscribe({
+      next: (dati) => {
+        this.postsPagina.set(dati);
+        this.pagina.set(numero);
         this.loading.set(false);
       },
       error: (err: HttpErrorResponse) => this.gestisciErrore(err),

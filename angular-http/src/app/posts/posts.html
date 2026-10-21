@@ -38,3 +38,24 @@
     }
   </div>
 }
+
+<h3 class="h5 mt-4">Post a pagine</h3>
+<div class="d-flex align-items-center gap-2 mb-3">
+  <button type="button" class="btn btn-outline-secondary" (click)="caricaPagina(pagina() - 1)"
+    [disabled]="pagina() === 1 || loading()">Precedente</button>
+  <span>Pagina {{ pagina() }} di {{ ultimaPagina }}</span>
+  <button type="button" class="btn btn-outline-secondary" (click)="caricaPagina(pagina() + 1)"
+    [disabled]="pagina() === ultimaPagina || loading()">Successiva</button>
+  <button type="button" class="btn btn-outline-primary ms-2" (click)="caricaPagina(1)">Carica la pagina 1</button>
+</div>
+
+@if (postsPagina().length > 0) {
+  <div class="list-group">
+    @for (p of postsPagina(); track p.id) {
+      <div class="list-group-item">
+        <h4 class="h6 mb-1">{{ p.id }}. {{ p.title }}</h4>
+        <p class="mb-0 small text-body-secondary">{{ p.body }}</p>
+      </div>
+    }
+  </div>
+}
